@@ -1,0 +1,25 @@
+on: [push]
+name: Linux_Container_Workflow
+
+jobs:
+    build-and-deploy:
+        runs-on: [self-hosted]
+        steps:
+        # checkout the repo
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@main
+          
+#         - name: 'Login via Azure CLI'
+#           uses: azure/login@v1
+#           with:
+#             creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+        - name: 'Build and push image'
+          uses: azure/docker-login@v1
+          with:
+            login-server: 'container1189.azurecr.io'
+            username: 'beb7c0a6-992d-4015-bb76-2156920b6d7b'
+            password: 'FOY8Q~JJsyEd9bNyfhR8U.HUS6jKgKlV2YiHya38'
+        - run: |
+            docker build . -t container1189.azurecr.io/sampleapp:${{ github.sha }}
+            docker push container1189.azurecr.io/sampleapp:${{ github.sha }}
