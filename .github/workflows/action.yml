@@ -23,3 +23,30 @@ jobs:
         - run: |
             docker build . -t container1189.azurecr.io/sampleapp:${{ github.sha }}
             docker push container1189.azurecr.io/sampleapp:${{ github.sha }}
+     
+        - uses: azure/setup-kubectl@v2.0
+
+         # Set the target AKS cluster.
+        - uses: Azure/aks-set-context@v1
+          with:
+              creds: '${{ secrets.AZURE_CREDENTIALS }}'
+              cluster-name: my-test-k8s
+              resource-group: RGforK8S
+              
+        - uses: Azure/k8s-create-secret@v1.1
+          with:
+              container-registry-url: container1189.azurecr.io
+              container-registry-username: 'beb7c0a6-992d-4015-bb76-2156920b6d7b'
+              container-registry-password: 'FOY8Q~JJsyEd9bNyfhR8U.HUS6jKgKlV2YiHya38'
+              secret-name: demo-k8s-secret
+
+        - uses: Azure/k8s-deploy@v4
+          with:
+              action: deploy
+              manifests: |
+                 deployment.yml
+              images: |
+                 container1189.azurecr.io/sampleapp:${{ github.sha }}
+              imagepullsecrets: |
+                 demo-k8s-secret
+      
