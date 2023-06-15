@@ -43,7 +43,7 @@ jobs:
         - uses: Azure/k8s-deploy@v4
           with:
               action: deploy
-              namespace: 'api'
+              namespace: 'ops'
               manifests: |
                  deployment.yml
               images: |
