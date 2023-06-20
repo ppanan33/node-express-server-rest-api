@@ -14,15 +14,15 @@ jobs:
 #           with:
 #             creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-        - name: 'Build and push image'
-          uses: azure/docker-login@v1
-          with:
-            login-server: 'container1189.azurecr.io'
-            username: 'beb7c0a6-992d-4015-bb76-2156920b6d7b'
-            password: 'FOY8Q~JJsyEd9bNyfhR8U.HUS6jKgKlV2YiHya38'
-        - run: |
-            docker build . -t container1189.azurecr.io/sampleapp:${{ github.sha }}
-            docker push container1189.azurecr.io/sampleapp:${{ github.sha }}
+#         - name: 'Build and push image'
+#           uses: azure/docker-login@v1
+#           with:
+#             login-server: 'container1189.azurecr.io'
+#             username: 'beb7c0a6-992d-4015-bb76-2156920b6d7b'
+#             password: 'FOY8Q~JJsyEd9bNyfhR8U.HUS6jKgKlV2YiHya38'
+#         - run: |
+#             docker build . -t container1189.azurecr.io/sampleapp:${{ github.sha }}
+#             docker push container1189.azurecr.io/sampleapp:${{ github.sha }}
      
         - uses: azure/setup-kubectl@v2.0
 
@@ -47,7 +47,7 @@ jobs:
               manifests: |
                  deployment.yml
               images: |
-                 container1189.azurecr.io/sampleapp:${{ github.sha }}
+                 container1189.azurecr.io/sampleapp:80eea1f4d859e05087b52614b934f062cc4e4979
               imagepullsecrets: |
                  demo-k8s-secret
   
