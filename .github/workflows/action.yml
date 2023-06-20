@@ -6,8 +6,8 @@ jobs:
         runs-on: [self-hosted]
         steps:
         # checkout the repo
-        - name: 'Checkout GitHub Action'
-          uses: actions/checkout@v3
+#         - name: 'Checkout GitHub Action'
+#           uses: actions/checkout@v3
           
 #         - name: 'Login via Azure CLI'
 #           uses: azure/login@v1
