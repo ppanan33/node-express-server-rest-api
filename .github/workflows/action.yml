@@ -50,4 +50,4 @@ jobs:
                  container1189.azurecr.io/sampleapp:${{ github.sha }}
               imagepullsecrets: |
                  demo-k8s-secret
-      
+  
